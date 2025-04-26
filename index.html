@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dirento Animation Studio</title>
+  <!-- Если у вас есть внешний файл стилей, его можно подключить ниже -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Общие стили для страницы */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      /* Тёмный градиентный фон */
+      background: linear-gradient(135deg, #2c003e, #44006f);
+      color: #fff; /* Белый цвет для текста */
+    }
+    
+    /* Стили для шапки сайта */
+    header {
+      text-align: center;
+      background: #1a1a1a;
+      padding: 20px 0;
+    }
+    
+    header .hero h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+    
+    header .hero p {
+      margin: 10px 0 0;
+      font-size: 1.2em;
+    }
+    
+    /* Стили для навигационного меню */
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background: #1f1f1f;
+    }
+    
+    nav ul li {
+      display: inline-block;
+    }
+    
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      padding: 15px 20px;
+      display: inline-block;
+      transition: background 0.3s, transform 0.3s;
+    }
+    
+    nav ul li a:hover {
+      background: #8A2BE2; /* Фиолетовый акцент при наведении */
+      transform: scale(1.05);
+    }
+    
+    /* Блоки контента */
+    .content-wrapper {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #2a2a2a;
+      color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    .section {
+      padding: 40px 0;
+      animation: fadeIn 1s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Стили для изображения с рамкой */
+    .framed-image {
+      border: 5px solid #8A2BE2; /* Фиолетовая рамка для акцента */
+      border-radius: 10px;
+      padding: 5px;
+      display: block;
+      margin: 20px auto;
+      max-width: 100%;
+      height: auto;
+      transition: transform 0.3s;
+    }
+    
+    .framed-image:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Стили для нижнего колонтитула */
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      background: #1a1a1a;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas для визуальных эффектов, если используются скрипты -->
+  <canvas id="particles-canvas"></canvas>
+  
+  <header>
+    <div class="hero">
+      <h1>Dirento Animation Studio</h1>
+      <p>Соединяем креативность с анимацией, вдохновлённой Minecraft</p>
+    </div>
+  </header>
+  
+  <nav>
+    <ul>
+      <li><a href="#about">О нас</a></li>
+      <li><a href="#services">Услуги</a></li>
+      <li><a href="#works">Наши работы</a></li>
+      <li><a href="#team">Сотрудники</a></li>
+      <li><a href="#apply">Подача заявки</a></li>
+      <li><a href="#contact">Контакты</a></li>
+    </ul>
+  </nav>
+  
+  <main>
+    <!-- Раздел "О нас" -->
+    <section id="about" class="section">
+      <div class="content-wrapper">
+        <h2>О нас</h2>
+        <p>Мы — студия анимации, воплощающая идеи в стиле Minecraft. Объединяем креативных профессионалов для создания уникальных проектов.</p>
+        <!-- Изображение с рамкой -->
+        <img src="1112.jpg" alt="Пример изображения" class="framed-image">
+      </div>
+    </section>
+    
+    <!-- Раздел "Услуги" -->
+    <section id="services" class="section">
+      <div class="content-wrapper">
+        <h2>Наши услуги</h2>
+        <ul>
+          <li>Разработка анимации</li>
+          <li>Видеомонтаж</li>
+          <li>Сторибординг и сценарии</li>
+          <li>Графический дизайн</li>
+          <li>Музыка и звуковое оформление</li>
+        </ul>
+      </div>
+    </section>
+    
+    <!-- Раздел "Наши работы" -->
+    <section id="works" class="section">
+      <div class="content-wrapper">
+        <h2>Наши работы</h2>
+        <p>Здесь представлены наши проекты и выполненные работы. Примеры проектов можно добавить в будущем.</p>
+      </div>
+    </section>
+    
+    <!-- Раздел "Сотрудники" -->
+    <section id="team" class="section">
+      <div class="content-wrapper">
+        <h2>Сотрудники</h2>
+        <ul class="team-list">
+          <li>Аниматор: Вячеслав</li>
+          <li>Монтёр: Пётр</li>
+          <li>Художник: Евгения</li>
+          <li>Звукорежиссёр: Андрей</li>
+        </ul>
+      </div>
+    </section>
+    
+    <!-- Раздел "Подача заявки" -->
+    <section id="apply" class="section">
+      <div class="content-wrapper">
+        <h2>Подача заявки</h2>
+        <form id="applicationForm" action="sendmail.php" method="POST">
+          <label for="name">Имя:</label>
+          <input type="text" id="name" name="name" required>
+  
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+  
+          <label for="role">Специализация (Аниматор, Монтёр, Художник и т.д.):</label>
+          <input type="text" id="role" name="role" required>
+  
+          <button type="submit">Отправить заявку</button>
+        </form>
+      </div>
+    </section>
+    
+    <!-- Раздел "Контакты" -->
+    <section id="contact" class="section">
+      <div class="content-wrapper">
+        <h2>Контакты</h2>
+        <p>Email: dirento@example.com</p>
+        <p>Telegram: <a href="https://t.me/MineeNewLife" target="_blank">https://t.me/MineeNewLife</a></p>
+        <p>Адрес: г. Москва и г. Караганда</p>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <p>&copy; 2025 Dirento Animation Studio. Все права защищены.</p>
+  </footer>
+  
+  <script src="scripts.js"></script>
+</body>
+</html>

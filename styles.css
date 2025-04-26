@@ -1,0 +1,200 @@
+/* Сброс стилей */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Задаем тёмно-зелёный фон для страницы */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #2E7D32; /* Тёмно-зелёный цвет */
+  color: #fff;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Canvas с летающими частицами - позиционируем за контентом */
+#particles-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Основной контент */
+header, nav, main, footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Шапка сайта */
+header {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 40px 20px;
+  text-align: center;
+  animation: headerPulse 4s infinite;
+}
+
+.hero h1 {
+  font-size: 3em;
+  margin-bottom: 10px;
+  color: #FFFF00; /* яркий желтый для контраста */
+}
+
+.hero p {
+  font-size: 1.5em;
+}
+
+/* Анимация пульсации для шапки */
+@keyframes headerPulse {
+  0%, 100% { background-color: rgba(0, 0, 0, 0.5); }
+  50% { background-color: rgba(0, 0, 0, 0.7); }
+}
+
+/* Навигация */
+nav {
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 10px 0;
+}
+
+nav ul li {
+  margin: 0 20px;
+  transition: transform 0.3s;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.1em;
+  transition: color 0.3s;
+}
+
+nav ul li:hover a {
+  color: #FFFF00;
+}
+
+nav ul li:hover {
+  transform: scale(1.1);
+  animation: navBounce 1s infinite;
+}
+
+/* Анимация для навигационных элементов */
+@keyframes navBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Разделы */
+.section {
+  padding: 60px 20px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.content-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #FFFF00;
+}
+
+.section p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+/* Стили списков для услуг и сотрудников */
+#services ul,
+.team-list {
+  list-style-type: disc;
+  text-align: left;
+  margin: 0 auto;
+  padding-left: 20px;
+  max-width: 400px;
+  color: #fff;
+}
+
+#services ul li,
+.team-list li {
+  margin: 10px 0;
+  animation: listItemSlide 1s forwards;
+}
+
+/* Форма заявки */
+form {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+form label {
+  display: block;
+  margin: 15px 0 5px;
+}
+
+form input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #FFFF00;
+  border: none;
+  color: #333;
+  font-size: 1.2em;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form button:hover {
+  background-color: #FFDD00;
+}
+
+/* Футер */
+footer {
+  background-color: rgba(0, 0, 0, 0.65);
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+/* Анимация появления элементов */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes listItemSlide {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadeInUp 1s forwards;
+}

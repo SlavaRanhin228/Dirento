@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Minecraft Сериал "Блоки Приключений" – В поисках талантов!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    /* Общие стили */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #87ceeb;
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    ul {
+      list-style: none;
+    }
+    
+    /* Навигация */
+    nav {
+      width: 100%;
+      background: rgba(46, 125, 50, 0.9);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #fff;
+      display: flex;
+      align-items: center;
+    }
+    /* Стили для логотипа */
+    .studio-logo {
+      height: 50px;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+    nav ul {
+      display: flex;
+    }
+    nav li {
+      margin: 0 15px;
+      position: relative;
+    }
+    nav li a {
+      color: #fff;
+      font-size: 1.1em;
+      transition: color 0.3s;
+    }
+    nav li a:hover {
+      color: #dcedc8;
+    }
+    nav li a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #fff;
+      transition: width 0.3s;
+    }
+    nav li a:hover::after {
+      width: 100%;
+    }
+    
+    /* Хедер */
+    header {
+      background: linear-gradient(135deg, #4a90e2, #50e3c2);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      padding: 0 20px;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0; 
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.imgur.com/A0RkeYl.png') no-repeat center center/cover;
+      opacity: 0.05;
+      z-index: 1;
+    }
+    header h1 {
+      font-size: 3.5em;
+      z-index: 2;
+      text-shadow: 2px 2px 4px #000;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeInDown 1.5s forwards;
+    }
+    header .tagline {
+      font-size: 1.5em;
+      z-index: 2;
+      opacity: 0;
+      animation: fadeInUp 1.5s forwards;
+      animation-delay: 0.5s;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Анимация появления секций */
+    .section-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease;
+    }
+    .section-container.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Секции */
+    section {
+      padding: 80px 20px;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 40px;
+      color: #2e7d32;
+      position: relative;
+    }
+    .section-title::after {
+      content: "";
+      width: 60px;
+      height: 4px;
+      background: #2e7d32;
+      display: block;
+      margin: 10px auto;
+    }
+    
+    /* Секция "О сериале" */
+    .about {
+      background: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      margin-bottom: 40px;
+      font-size: 1.2em;
+      line-height: 1.8;
+    }
+    
+    /* Секция "Эпизоды" */
+    .episodes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+    .episode-card {
+      background: #fff;
+      width: 280px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      overflow: hidden;
+      transition: transform 0.4s;
+      cursor: pointer;
+      position: relative;
+    }
+    .episode-card:hover {
+      transform: translateY(-10px) scale(1.02);
+    }
+    .episode-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 20px;
+    }
+    .card-content h3 {
+      margin-bottom: 10px;
+      font-size: 1.4em;
+      color: #2e7d32;
+    }
+    .card-content p {
+      font-size: 1em;
+      color: #555;
+    }
+    
+    /* Секция "Команда" */
+    .team {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+    .team-member {
+      background: #fff;
+      width: 200px;
+      text-align: center;
+      padding: 20px;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      transition: transform 0.4s;
+    }
+    .team-member:hover {
+      transform: scale(1.05);
+    }
+    .team-member img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+    .team-member h4 {
+      font-size: 1.1em;
+      margin-bottom: 5px;
+      color: #2e7d32;
+    }
+    .team-member p {
+      font-size: 0.9em;
+      color: #777;
+    }
+    
+    /* Секция "Вакансии" */
+    .apply {
+      background: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .apply form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      font-size: 1em;
+    }
+    .apply input,
+    .apply textarea {
+      padding: 12px;
+      border: 2px solid #2e7d32;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    .apply input:focus,
+    .apply textarea:focus {
+      outline: none;
+      border-color: #1b5e20;
+    }
+    .apply button {
+      background: #2e7d32;
+      color: #fff;
+      padding: 12px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.4s;
+    }
+    .apply button:hover {
+      background: #1b5e20;
+    }
+    
+    /* Секция "Контакты" */
+    .contact {
+      background: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      font-size: 1.1em;
+      text-align: center;
+    }
+    
+    /* Footer */
+    footer {
+      background: #2e7d32;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    /* Логотип в футере */
+    .studio-logo-footer {
+      height: 40px;
+      margin-bottom: 10px;
+    }
+    
+    /* Анимация плавающих блоков (Minecraft стиль) */
+    .block {
+      position: absolute;
+      background: #a1887f;
+      border: 2px solid #7b5e4c;
+      animation: float 4s infinite ease-in-out;
+      opacity: 0.6;
+      z-index: 0;
+    }
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(20px, -20px); }
+      100% { transform: translate(0, 0); }
+    }
+    
+    /* Кнопка "Прокрутить наверх" */
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #2e7d32;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 1000;
+      transition: background 0.3s;
+    }
+    .scroll-top:hover {
+      background: #1b5e20;
+    }
+    
+    /* Дополнительный элемент - Портал с изображением kik.jpg */
+    .portal {
+      position: fixed;
+      bottom: 50px;
+      left: 50px;
+      width: 100px;
+      height: 100px;
+      background: url('kik.jpg') no-repeat center center;
+      background-size: cover;
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(0,170,255,0.8);
+      animation: portalAnim 5s linear infinite;
+      z-index: 1001;
+    }
+    @keyframes portalAnim {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.1); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+    
+    /* Кнопка для остановки музыки */
+    #stopMusic {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      z-index: 1002;
+      padding: 10px 15px;
+      border: none;
+      background: #2e7d32;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.8em;
+      }
+      header .tagline {
+        font-size: 1.2em;
+      }
+      .nav-container {
+        flex-direction: column;
+      }
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .episodes,
+      .team {
+        flex-direction: column;
+        align-items: center;
+      }
+      .episode-card,
+      .team-member {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Навигация -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">
+        <img src="logo.png" alt="Логотип" class="studio-logo">
+        Блоки Приключений
+      </div>
+      <ul>
+        <li><a href="#home">Главная</a></li>
+        <li><a href="#about">О сериале</a></li>
+        <li><a href="#episodes">Эпизоды</a></li>
+        <li><a href="#team">Команда</a></li>
+        <li><a href="#apply">Вакансии</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <!-- Плавающие кубические блоки -->
+  <script>
+    const blockCount = 15;
+    for (let i = 0; i < blockCount; i++) {
+      const block = document.createElement('div');
+      block.classList.add('block');
+      const size = Math.floor(Math.random() * 50) + 30;
+      block.style.width = size + 'px';
+      block.style.height = size + 'px';
+      block.style.left = Math.random() * window.innerWidth + 'px';
+      block.style.top = Math.random() * window.innerHeight + 'px';
+      document.body.appendChild(block);
+    }
+    // Перемещение блоков каждые 4 секунды
+    setInterval(() => {
+      document.querySelectorAll('.block').forEach(block => {
+        block.style.left = Math.random() * window.innerWidth + 'px';
+        block.style.top = Math.random() * window.innerHeight + 'px';
+      });
+    }, 4000);
+  </script>
+  
+  <!-- Хедер -->
+  <header id="home">
+    <h1>Minecraft Сериал "Блоки Приключений"</h1>
+    <div class="tagline">Погрузись в мир кубических приключений и стань частью команды!</div>
+  </header>
+  
+  <!-- Секция "О сериале" -->
+  <section id="about">
+    <div class="section-container">
+      <h2 class="section-title">О сериале</h2>
+      <div class="about">
+        <p>
+          Наш сериал в стиле Minecraft "Блоки Приключений" рассказывает историю о мире, где каждый блок имеет свою историю.
+          Захватывающие квесты, эпические битвы и безграничное творчество – всё это создаёт уникальную атмосферу.
+        </p>
+        <p>
+          Мы объединили лучшие идеи и таланты, чтобы подарить зрителям настоящую эмоцию и создать серию, в которой каждый кадр дышит жизнью.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Секция "Эпизоды" -->
+  <section id="episodes">
+    <div class="section-container">
+      <h2 class="section-title">Эпизоды</h2>
+      <div class="episodes">
+        <div class="episode-card">
+          <img src="https://i.imgur.com/ej5bG9T.jpg" alt="Эпизод 1">
+          <div class="card-content">
+            <h3>Эпизод 1</h3>
+            <p>Начало приключений. Тайны древних блоков и первые испытания.</p>
+          </div>
+        </div>
+        <div class="episode-card">
+          <img src="https://i.imgur.com/0MztxCN.jpg" alt="Эпизод 2">
+          <div class="card-content">
+            <h3>Эпизод 2</h3>
+            <p>Погружение в подземелья. Битва с монстрами и загадочные находки.</p>
+          </div>
+        </div>
+        <div class="episode-card">
+          <img src="https://i.imgur.com/YFiRF9p.jpg" alt="Эпизод 3">
+          <div class="card-content">
+            <h3>Эпизод 3</h3>
+            <p>Полет фантазии. Мировые открытия и неожиданные встречи.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Секция "Команда" -->
+  <section id="team">
+    <div class="section-container">
+      <h2 class="section-title">Наша Команда</h2>
+      <div class="team">
+        <div class="team-member">
+          <img src="https://i.imgur.com/JYUBP8c.jpg" alt="Руководитель">
+          <h4>Алексей</h4>
+          <p>Режиссёр</p>
+        </div>
+        <div class="team-member">
+          <img src="https://i.imgur.com/mBe5vdJ.jpg" alt="Сценарист">
+          <h4>Мария</h4>
+          <p>Сценарист</p>
+        </div>
+        <div class="team-member">
+          <img src="https://i.imgur.com/RWrJNyv.jpg" alt="Дизайнер">
+          <h4>Иван</h4>
+          <p>Дизайнер</p>
+        </div>
+        <div class="team-member">
+          <img src="https://i.imgur.com/f1kruQJ.jpg" alt="Аниматор">
+          <h4>Елена</h4>
+          <p>Аниматор</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Секция "Вакансии" -->
+  <section id="apply">
+    <div class="section-container">
+      <h2 class="section-title">Вакансии</h2>
+      <div class="apply">
+        <form>
+          <input type="text" placeholder="Ваше имя" required>
+          <input type="email" placeholder="Ваш Email" required>
+          <textarea placeholder="Почему вы хотите работать с нами?" rows="5" required></textarea>
+          <button type="submit">Отправить заявку</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Секция "Контакты" -->
+  <section id="contact">
+    <div class="section-container">
+      <h2 class="section-title">Контакты</h2>
+      <div class="contact">
+        <p>
+          Если у вас возникли вопросы о сериале или вакансиях, свяжитесь с нами.
+          Мы открыты для новых идей и сотрудничества!
+        </p>
+        <p><strong>Email:</strong> info@minecraftseries.com</p>
+        <p><strong>Телефон:</strong> +7 (123) 456-78-90</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">
+      <img src="logo.png" alt="Логотип" class="studio-logo-footer">
+    </div>
+    <p>&copy; 2025 Minecraft Сериал "Блоки Приключений" – Все права защищены</p>
+  </footer>
+  
+  <!-- Кнопка "Прокрутить наверх" -->
+  <div class="scroll-top" onclick="scrollToTop()">↑</div>
+  
+  <!-- Кнопка для остановки музыки -->
+  <button id="stopMusic">Остановить музыку</button>
+  
+  <!-- Элемент аудио для звука копания блока (dig) -->
+  <audio id="digSound" src="dig.mp3" preload="auto"></audio>
+  
+  <!-- Дополнительный элемент: Портал с изображением kik.jpg -->
+  <div class="portal"></div>
+  
+  <script>
+    // Показ кнопки "Прокрутить наверх" при прокрутке страницы
+    window.addEventListener('scroll', () => {
+      const scrollTopBtn = document.querySelector('.scroll-top');
+      scrollTopBtn.style.display = window.pageYOffset > 200 ? 'block' : 'none';
+    });
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    // Анимация печатной машинки для слогана
+    document.addEventListener("DOMContentLoaded", () => {
+      const tagline = document.querySelector('.tagline');
+      const text = tagline.textContent;
+      tagline.textContent = "";
+      let index = 0;
+      function typeWriter() {
+        if (index < text.length) {
+          tagline.textContent += text.charAt(index);
+          index++;
+          setTimeout(typeWriter, 80);
+        }
+      }
+      typeWriter();
+    });
+    
+    // Воспроизведение звука копания при первом клике (автовоспроизведение может быть заблокировано)
+    document.addEventListener("click", () => {
+      const digSound = document.getElementById('digSound');
+      digSound.play().catch(error => {
+        console.log("Ошибка при воспроизведении звука:", error);
+      });
+    }, { once: true });
+    
+    // Обработчик для остановки музыки
+    document.getElementById('stopMusic').addEventListener('click', () => {
+      const digSound = document.getElementById('digSound');
+      digSound.pause();
+      digSound.currentTime = 0;
+    });
+    
+    // Анимация появления секций через IntersectionObserver
+    const sections = document.querySelectorAll('.section-container');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>
